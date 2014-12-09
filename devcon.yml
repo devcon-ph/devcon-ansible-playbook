@@ -1,0 +1,14 @@
+---
+- hosts: devcon-server
+  # user: root
+  remote_user: ubuntu
+  sudo: yes
+  tasks:
+    - name: update apt cache
+      apt: update_cache=yes
+
+    - name: install base software
+      apt: pkg="{{ item }}" state=latest
+      with_items:
+        - git-core
+        - build-essential
