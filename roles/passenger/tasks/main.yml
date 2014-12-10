@@ -1,0 +1,19 @@
+---
+- name: install gems
+  command: /usr/bin/gem2.1 install bundler passenger --no-ri --no-rdoc
+
+- name: install passenger
+  command: /usr/local/bin/passenger-install-nginx-module --prefix=/usr/local/nginx --extra-configure-flags=none --languages=ruby --auto
+
+- name: symlink conf to /etc/nginx
+  file: src=/usr/local/nginx/conf dest=/etc/nginx state=link force=yes
+
+- name: copy nginx conf
+  copy: src=nginx.conf dest=/etc/nginx
+
+- name: copy nginx init.d
+  template: src=nginx dest=/etc/init.d/nginx mode=0744
+
+- name: update-rc.d
+  command: update-rc.d -f nginx defaults
+

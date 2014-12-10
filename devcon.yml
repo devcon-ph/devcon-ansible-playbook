@@ -1,30 +1,27 @@
 ---
-- hosts: devcon-server
+- name: initial setup
+  hosts: devcon-server
   # user: root
   remote_user: ubuntu
   sudo: yes
-  tasks:
-    - name: add brightbox ruby package repo
-      apt_repository: repo='ppa:brightbox/ruby-ng' update_cache=no
+  roles:
+    - common
+    - passenger
+    - php-fpm
+    - mysql
 
-    - name: update apt cache
-      apt: update_cache=yes
+- name: non-sudo setup
+  hosts: devcon-server
+  # user: root
+  remote_user: ubuntu
 
-    - name: install required packages
-      apt: pkg="{{ item }}" state=latest
-      with_items:
-        - git-core
-        - build-essential
-        - libssl-dev
-        - libcurl4-openssl-dev
-        - libpcre3-dev
-        - zlib1g-dev
-        - ruby2.1
-        - ruby2.1-dev
-        - libruby2.1
+  roles:
+    - piwik
 
-    - name: install gems
-      command: /usr/bin/gem2.1 install bundler passenger --no-ri --no-rdoc
-
-    - name: install passenger
-      command: /usr/local/bin/passenger-install-nginx-module --prefix=/usr/local/nginx --extra-configure-flags=none --languages=ruby --auto
+- name: finish setup
+  hosts: devcon-server
+  # user: root
+  remote_user: ubuntu
+  sudo: yes
+  roles:
+    - finish

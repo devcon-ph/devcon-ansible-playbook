@@ -1,0 +1,8 @@
+---
+- name: change piwik permisions
+  file: path=/home/ubuntu/piwik owner=www-data group=www-data recurse=yes
+
+- file: path=/home/ubuntu/piwik/tmp mode=0755 recurse=yes
+
+- name: restart nginx
+  service: name=nginx state=restarted

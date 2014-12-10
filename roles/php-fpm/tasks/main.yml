@@ -1,0 +1,21 @@
+---
+- name: install php packages
+  apt: pkg="{{ item }}" state=latest
+  with_items:
+    - php5
+    - php5-mysql
+    - php5-mcrypt
+    - php5-cli
+    - php5-common
+    - php5-curl
+    - php5-dev
+    - php5-fpm
+    - php5-gd
+    - php5-geoip
+    - libgeoip-dev
+
+- name: copy nginx init.d
+  template: src=www.conf dest=/etc/php5/fpm/pool.d/www.conf
+
+- name: start php-fpm
+  service: name=php5-fpm state=restarted

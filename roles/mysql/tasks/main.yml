@@ -1,0 +1,16 @@
+---
+- name: install mysql
+  apt: pkg="{{ item }}" state=latest
+  with_items:
+    - mysql-server
+    - python-mysqldb
+
+- name: upload old piwik dump
+  copy: src=piwik.sql dest=/tmp
+    
+- name: create piwik database and import old data
+  mysql_db: name=piwik state=present
+- mysql_db: name=piwik state=import target=/tmp/piwik.sql
+
+- name: create piwik database user
+  mysql_user: name=piwik password=piwik priv=piwik.*:ALL host='localhost' state=present

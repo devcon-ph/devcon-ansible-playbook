@@ -1,0 +1,20 @@
+---
+- name: add brightbox ruby package repo
+  apt_repository: repo='ppa:brightbox/ruby-ng' update_cache=no
+
+- name: update apt cache
+  apt: update_cache=yes
+
+- name: install required packages
+  apt: pkg="{{ item }}" state=latest
+  with_items:
+    - git-core
+    - build-essential
+    - libssl-dev
+    - libcurl4-openssl-dev
+    - libpcre3-dev
+    - zlib1g-dev
+    - ruby2.1
+    - ruby2.1-dev
+    - libruby2.1
+    - htop
