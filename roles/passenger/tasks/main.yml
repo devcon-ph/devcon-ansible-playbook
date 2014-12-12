@@ -1,19 +1,34 @@
 ---
-- name: install gems
-  command: /usr/bin/gem2.1 install bundler passenger --no-ri --no-rdoc
+- name: get passengeer PGP keys
+  apt_key: keyserver=keyserver.ubuntu.com id=561F9B9CAC40B2F7
 
-- name: install passenger
-  command: /usr/local/bin/passenger-install-nginx-module --prefix=/usr/local/nginx --extra-configure-flags=none --languages=ruby --auto
+- name: add passenger source repo
+  template: src=passenger.list dest=/etc/apt/sources.list.d/passenger.list owner=root mode=0600
 
-- name: symlink conf to /etc/nginx
-  file: src=/usr/local/nginx/conf dest=/etc/nginx state=link force=yes
+- name: update apt cache
+  apt: update_cache=yes
 
-- name: copy nginx conf
-  copy: src=nginx.conf dest=/etc/nginx
+- name: install passenger and nginx
+  apt: pkg="{{ item }}" state=latest
+  with_items:
+    - nginx-extras
+    - passenger
 
-- name: copy nginx init.d
-  template: src=nginx dest=/etc/init.d/nginx mode=0744
+- name: add base nginx.conf
+  template: src=nginx.conf dest=/etc/nginx/nginx.conf
 
-- name: update-rc.d
-  command: update-rc.d -f nginx defaults
+- name: add default (devcon.ph) conf
+  template: src=default dest=/etc/nginx/sites-available/default
+
+- name: add beta conf
+  template: src=beta dest=/etc/nginx/sites-available/beta
+#- file: src=/etc/nginx/sites-available/beta dest=/etc/nginx/sites-enabled/beta state=link
+
+- name: add piwik conf
+  template: src=analytics dest=/etc/nginx/sites-available/analytics
+- file: src=/etc/nginx/sites-available/analytics dest=/etc/nginx/sites-enabled/analytics state=link
+
+- name: add summit and api conf
+  template: src=summitapi dest=/etc/nginx/sites-available/summit
+- file: src=/etc/nginx/sites-available/summit dest=/etc/nginx/sites-enabled/summit state=link
 

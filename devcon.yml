@@ -6,6 +6,7 @@
   sudo: yes
   roles:
     - common
+    - users
     - passenger
     - php-fpm
     - mysql
@@ -13,7 +14,7 @@
 - name: non-sudo setup
   hosts: devcon-server
   # user: root
-  remote_user: ubuntu
+  remote_user: deploy
 
   roles:
     - piwik

@@ -1,0 +1,33 @@
+server {
+        server_name summit2013.devcon.ph;
+        location / {
+                rewrite  ^/(.*)$  http://devcon.ph/events/devconsummit2013  permanent;
+        }
+}
+
+server {
+        listen 80;
+        server_name summit.devcon.ph;
+        root /home/deploy/summit/static;
+        gzip_static on;
+}
+
+server {
+        listen 80;
+        server_name api.devcon.ph;
+        root /home/deploy/apps/summit/current/public;
+        gzip_static on;
+
+        access_log  /var/log/nginx/api_access.log;
+        error_log   /var/log/nginx/api_error.log;
+
+        location ~* (css|js|png|jpe?g|gif|ico)$ {
+                root        /home/deploy/apps/api/current/public;
+                expires     max;
+        }
+
+        location /assets {
+                root        /home/deploy/apps/api/current/public;
+                expires     max;
+        }
+}

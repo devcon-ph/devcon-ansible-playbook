@@ -1,0 +1,3 @@
+---
+- name: add deploy user
+  user: name=deploy

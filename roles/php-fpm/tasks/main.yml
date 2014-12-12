@@ -14,8 +14,5 @@
     - php5-geoip
     - libgeoip-dev
 
-- name: copy nginx init.d
-  template: src=www.conf dest=/etc/php5/fpm/pool.d/www.conf
-
 - name: start php-fpm
   service: name=php5-fpm state=restarted

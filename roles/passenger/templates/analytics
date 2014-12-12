@@ -1,0 +1,52 @@
+server {
+        listen 80;
+        server_name analytics.devcon.ph;
+        root /home/deploy/piwik;
+        access_log /var/log/nginx/analytics_access.log;
+        error_log /var/log/nginx/analytics_error.log;
+        index index.php index.html index.htm;
+
+        # Deny all attempts to access hidden files such as .htaccess, .htpasswd, .DS_Store (Mac).
+        location ~ /\. {
+                deny all;
+                access_log off;
+                log_not_found off;
+        }
+
+        location = /favicon.ico {
+                log_not_found off;
+                access_log off;
+        }
+
+        location = /robots.txt {
+                allow all;
+                log_not_found off;
+                access_log off;
+        }
+
+        location / {
+                try_files $uri $uri/ /index.php?$query_string;
+        }
+
+        location = /index.php {
+                include fastcgi_params;
+                access_log off;
+                fastcgi_index index.php;
+                fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+                fastcgi_pass   unix:/var/run/php-fpm.sock;
+        }
+
+        location ~ \.php$ {
+                include fastcgi_params;
+                fastcgi_index index.php;
+                fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+                fastcgi_pass   unix:/var/run/php-fpm.sock;
+        }
+
+        location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
+                expires max;
+                log_not_found off;
+                add_header cache-control public;
+        }
+}
+

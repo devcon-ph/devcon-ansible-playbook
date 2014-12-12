@@ -1,0 +1,19 @@
+server {
+        listen 80;
+        server_name beta.devcon.ph;
+        root /home/deploy/apps/devcon/current/public;
+        gzip_static on;
+
+        access_log  /var/log/nginx/beta_access.log;
+        error_log   /var/log/nginx/beta_error.log;
+
+        location ~* (css|js|png|jpe?g|gif|ico)$ {
+                root        /home/deploy/apps/devcon/current/public;
+                expires     max;
+        }
+
+        location /assets {
+                root        /home/deploy/apps/devcon/current/public;
+                expires     max;
+        }
+}

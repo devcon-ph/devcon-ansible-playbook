@@ -18,3 +18,6 @@
     - ruby2.1-dev
     - libruby2.1
     - htop
+
+- name: install bundler
+  command: /usr/bin/gem2.1 install bundler --no-ri --no-rdoc

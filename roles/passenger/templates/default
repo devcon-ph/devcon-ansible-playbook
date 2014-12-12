@@ -1,0 +1,27 @@
+server {
+        listen 80;
+        server_name devcon.ph default_server;
+        root /home/deploy/apps/devcon-release/current/public;
+        gzip_static on;
+
+        access_log  /var/log/nginx/prod_access.log;
+        error_log   /var/log/nginx/prod_error.log;
+
+        location ~* (css|js|png|jpe?g|gif|ico)$ {
+                root        /home/deploy/apps/devcon-release/current/public;
+                expires     max;
+        }
+
+        location /assets {
+                root        /home/deploy/apps/devcon-release/current/public;
+                expires     max;
+        }
+}
+
+server {
+        server_name www.devcon.ph;
+        location / {
+                rewrite  ^/(.*)$  http://devcon.ph/$1  permanent;
+        }
+}
+
