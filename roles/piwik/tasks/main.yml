@@ -3,7 +3,7 @@
   get_url: url=http://builds.piwik.org/piwik.tar.gz dest=/tmp/piwik.tar.gz
 
 - name: extract piwik
-  command: tar -xf /tmp/piwik.tar.gz --directory /home/ubuntu
+  command: tar -xf /tmp/piwik.tar.gz --directory /home/deploy
 
 - name: copy piwik config
-  template: src=config.ini.php dest=/home/ubuntu/piwik/config/config.ini.php
+  template: src=config.ini.php dest=/home/deploy/piwik/config/config.ini.php
