@@ -29,6 +29,6 @@
 - file: src=/etc/nginx/sites-available/analytics dest=/etc/nginx/sites-enabled/analytics state=link
 
 - name: add summit and api conf
-  template: src=summitapi dest=/etc/nginx/sites-available/summit
+  template: src=summit dest=/etc/nginx/sites-available/summit
 - file: src=/etc/nginx/sites-available/summit dest=/etc/nginx/sites-enabled/summit state=link
 

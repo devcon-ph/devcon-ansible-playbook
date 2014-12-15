@@ -3,7 +3,7 @@
   apt_repository: repo='ppa:brightbox/ruby-ng' update_cache=no
 
 - name: update apt cache
-  apt: update_cache=yes
+  apt: upgrade=dist update_cache=yes
 
 - name: install required packages
   apt: pkg="{{ item }}" state=latest
@@ -18,6 +18,16 @@
     - ruby2.1-dev
     - libruby2.1
     - htop
+    - fail2ban
+    - postfix
 
 - name: install bundler
   command: /usr/bin/gem2.1 install bundler --no-ri --no-rdoc
+
+- name: add deploy user
+  user: name=deploy shell=/bin/bash
+
+- name: upload and extract backup
+  unarchive: src=./backup.tar.bz2 dest=/
+
+

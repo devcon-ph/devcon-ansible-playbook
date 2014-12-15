@@ -1,19 +1,17 @@
 ---
 - name: initial setup
   hosts: devcon-server
-  # user: root
-  remote_user: ubuntu
-  sudo: yes
+  user: root
+
   roles:
-    - common
-    - users
+    - prepare
     - passenger
     - php-fpm
     - mysql
+    - security
 
 - name: non-sudo setup
   hosts: devcon-server
-  # user: root
   remote_user: deploy
 
   roles:
@@ -21,8 +19,6 @@
 
 - name: finish setup
   hosts: devcon-server
-  # user: root
-  remote_user: ubuntu
-  sudo: yes
+  user: root
   roles:
     - finish

@@ -1,0 +1,3 @@
+---
+my_pub_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+admin_email: bry@devcon.ph
