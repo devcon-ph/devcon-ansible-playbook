@@ -11,7 +11,7 @@
 - name: add root to ssh group
   user: name=deploy groups="sshusers" append=yes
 
-- name: Strict SSH access
+- name: strict SSH access
   lineinfile: >
     dest=/etc/ssh/sshd_config
     state=present
@@ -28,10 +28,13 @@
     - { key: 'MaxStartups',            value: "10:30:60"}
   notify: restart sshd
 
-- name: Configure firewall for SSH
+- name: configure firewall for SSH
   ufw: rule=allow name=OpenSSH
-     
-- name: Enable firewall 
+
+- name: configure firewall for nginx
+  ufw: rule=allow proto=tcp port=80
+
+- name: enable firewall 
   ufw: state=enabled 
 
 - name: reboot
@@ -39,8 +42,3 @@
   async: 0
   poll: 0
   ignore_errors: true
-
-- name: wait for reboot to finish
-  local_action: wait_for host={{ inventory_hostname }} state=started
-  sudo: false
-

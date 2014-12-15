@@ -1,0 +1,6 @@
+---
+- name: create production database
+  command: createdb devcon_prod
+
+- name: import old data
+  command: psql devcon_prod -f /bak/release.sql

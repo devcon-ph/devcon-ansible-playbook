@@ -1,3 +1,4 @@
 ---
 my_pub_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
 admin_email: bry@devcon.ph
+mysql_root_password: sfyopadfgycvbqwn12312ad

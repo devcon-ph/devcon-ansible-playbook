@@ -7,18 +7,5 @@
     - prepare
     - passenger
     - php-fpm
-    - mysql
+    - db
     - security
-
-- name: non-sudo setup
-  hosts: devcon-server
-  remote_user: deploy
-
-  roles:
-    - piwik
-
-- name: finish setup
-  hosts: devcon-server
-  user: root
-  roles:
-    - finish

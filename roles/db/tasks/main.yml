@@ -1,0 +1,50 @@
+---
+- name: install mysql
+  apt: pkg="{{ item }}" state=latest
+  with_items:
+    - mysql-server
+    - python-mysqldb
+
+- name: update mysql root password for all root accounts
+  mysql_user: 
+    name: root 
+    host: "{{ item }}" 
+    password: "{{ mysql_root_password }}"
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+    check_implicit_admin: yes
+    priv: "*.*:ALL,GRANT"
+  with_items:
+    - devcon.ph
+    - localhost
+    - 127.0.0.1
+    - ::1
+
+- name: config for quick root access
+  template: src=root-my-cnf.j2 dest=/root/.my.cnf
+
+- name: remove anonymous MySQL server user for localhost
+  mysql_user: name="" state=absent
+- mysql_user: name="" host="devcon.ph" state=absent
+
+- name: remove MySQL test db
+  mysql_db: name=test state=absent
+
+- name: create piwik database and import old data
+  mysql_db: name=piwik state=present
+- mysql_db: name=piwik state=import target=/bak/piwik.sql
+
+- name: create piwik database user
+  mysql_user: name=piwik password=piwik priv=piwik.*:ALL host='localhost' state=present
+
+- name: install postgresql
+  apt: pkg="{{ item }}" state=latest
+  with_items:
+    - postgresql
+    - postgresql-contrib
+    - python-psycopg2
+    - libpq-dev
+
+- name: make deploy user superuser
+  command: sudo -u postgres createuser --superuser deploy
+- command: sudo -u postgres createdb deploy

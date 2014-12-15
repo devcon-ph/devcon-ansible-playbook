@@ -20,6 +20,7 @@
     - htop
     - fail2ban
     - postfix
+    - nginx
 
 - name: install bundler
   command: /usr/bin/gem2.1 install bundler --no-ri --no-rdoc
@@ -30,4 +31,10 @@
 - name: upload and extract backup
   unarchive: src=./backup.tar.bz2 dest=/
 
+- name: change apps permisions
+  file: path=/home/deploy/apps owner=deploy group=deploy recurse=yes
+
+- name: change ssh permisions
+  file: path=/home/deploy/.ssh owner=deploy group=deploy mode=600 recurse=yes
+- file: path=/home/deploy/.ssh mode=700
 

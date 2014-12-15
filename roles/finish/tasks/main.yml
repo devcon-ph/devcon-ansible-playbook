@@ -1,11 +1,4 @@
 ---
-- name: change apps permisions
-  file: path=/home/deploy/apps owner=deploy group=deploy recurse=yes
-
-- name: change ssh permisions
-  file: path=/home/deploy/.ssh owner=deploy group=deploy mode=600 recurse=yes
-- file: path=/home/deploy/.ssh mode=700
-
 - name: change piwik permisions
   file: path=/home/deploy/piwik owner=www-data group=www-data recurse=yes
 
