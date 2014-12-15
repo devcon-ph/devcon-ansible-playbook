@@ -1,4 +1,3 @@
 hosts
 *.sql
 *.tar.bz2
-nginx.conf
