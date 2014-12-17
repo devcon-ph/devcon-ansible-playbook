@@ -14,5 +14,8 @@
     - php5-geoip
     - libgeoip-dev
 
+- name: enable opcode cache
+  template: src=php.ini dest=/etc/php5/fpm/php.ini
+
 - name: start php-fpm
   service: name=php5-fpm state=restarted
