@@ -14,16 +14,16 @@
     - libcurl4-openssl-dev
     - libpcre3-dev
     - zlib1g-dev
-    - ruby2.1
-    - ruby2.1-dev
-    - libruby2.1
+    - ruby2.2
+    - ruby2.2-dev
+    - libruby2.2
     - htop
     - fail2ban
     - postfix
     - nginx
 
 - name: install bundler
-  command: /usr/bin/gem2.1 install bundler --no-ri --no-rdoc
+  command: /usr/bin/gem2.2 install bundler --no-ri --no-rdoc
 
 - name: add deploy user
   user: name=deploy shell=/bin/bash
