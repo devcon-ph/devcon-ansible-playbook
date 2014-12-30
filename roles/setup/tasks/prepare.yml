@@ -21,6 +21,7 @@
     - fail2ban
     - postfix
     - nginx
+    - nodejs
 
 - name: install bundler
   command: /usr/bin/gem2.2 install bundler --no-ri --no-rdoc

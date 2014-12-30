@@ -1,0 +1,6 @@
+---
+- include: prepare.yml
+- include: web-server.yml
+- include: php-fpm.yml
+- include: dbs.yml
+- include: security.yml

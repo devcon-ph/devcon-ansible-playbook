@@ -3,7 +3,7 @@
   apt_key: keyserver=keyserver.ubuntu.com id=561F9B9CAC40B2F7
 
 - name: add passenger source repo
-  template: src=passenger.list dest=/etc/apt/sources.list.d/passenger.list owner=root mode=0600
+  template: src=passenger.list dest=/etc/apt/sources.list.d/passenger.list owner=root mode=0644
 
 - name: update apt cache
   apt: update_cache=yes
@@ -25,8 +25,8 @@
 #- file: src=/etc/nginx/sites-available/beta dest=/etc/nginx/sites-enabled/beta state=link
 
 - name: add piwik conf
-  template: src=analytics dest=/etc/nginx/sites-available/analytics
-- file: src=/etc/nginx/sites-available/analytics dest=/etc/nginx/sites-enabled/analytics state=link
+  template: src=piwik dest=/etc/nginx/sites-available/piwik
+- file: src=/etc/nginx/sites-available/piwik dest=/etc/nginx/sites-enabled/piwik state=link
 
 - name: add summit and api conf
   template: src=summit dest=/etc/nginx/sites-available/summit

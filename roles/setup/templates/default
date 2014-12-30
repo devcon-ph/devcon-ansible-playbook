@@ -1,8 +1,9 @@
 server {
         listen 80;
-        server_name devcon.ph default_server;
+        server_name devcon.ph;
         root /home/deploy/apps/devcon-release/current/public;
         gzip_static on;
+        passenger_enabled on;
 
         access_log  /var/log/nginx/prod_access.log;
         error_log   /var/log/nginx/prod_error.log;
@@ -12,6 +13,17 @@ server {
                 expires     max;
         }
 
+        location /assets {
+                root        /home/deploy/apps/devcon-release/current/public;
+                expires     max;
+        }
+}
+
+server {
+        listen 80;
+        server_name assets.devcon.ph;
+        root        /home/deploy/apps/devcon-release/current/public;
+        gzip_static on;
         location /assets {
                 root        /home/deploy/apps/devcon-release/current/public;
                 expires     max;

@@ -4,8 +4,7 @@
   remote_user: deploy
 
   roles:
-    - piwik
-    - devconph
+    - extra
 
 - name: finish setup
   hosts: devcon-server

@@ -4,8 +4,4 @@
   user: root
 
   roles:
-    - prepare
-    - passenger
-    - php-fpm
-    - db
-    - security
+    - setup
