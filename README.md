@@ -20,7 +20,7 @@ Once the two are ready, do the following steps to provision a new DevCon server:
 2. Copy `hosts.example` to `hosts` and replace the `localhost` inside with the IP address of the new server.
 3. Run `ansible-playbook -i hosts devcon.yml`. The script will restart the server at the end.
 4. After the server restart is finished, run `ansible-playbook -i hosts devcon-finish.yml` to complete the provisioning.
-5. Deploy the DevCon website using Capistrano. [See site source for details.](https://devcon-ph/devcon)
+5. Deploy the DevCon website using Capistrano. [See site source for details.](https://github.com/devcon-ph/devcon)
 6. Check if all subdomains are working correctly (default, analytics, summit, etc).
 7. Manually setup the non-open-source backup script.
 7. If you're using Digital Ocean or any VPS that doesn't allocate swap space, allocate the appropriate amount of swap space using [this guide](https://www.digitalocean.com/community/tutorials/how-to-add-swap-on-ubuntu-14-04).
