@@ -1,5 +1,5 @@
 server {
-        listen 80;
+        listen 80 default_server;
         server_name devcon.ph;
         root /home/deploy/apps/devcon-release/current/public;
         gzip_static on;
