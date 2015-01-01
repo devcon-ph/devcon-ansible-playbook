@@ -4,3 +4,6 @@
 
 - name: import old data
   command: psql devcon_prod -f /bak/release.sql
+
+- name: checkout summit 2014 site source
+  command: git clone https://github.com/devcon-ph/summit_2014.git /home/deploy/summit/static
