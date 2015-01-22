@@ -22,6 +22,8 @@
     - postfix
     - nginx
     - nodejs
+    - imagemagick
+    - libmagickwand-dev
 
 - name: install bundler
   command: /usr/bin/gem2.2 install bundler --no-ri --no-rdoc
