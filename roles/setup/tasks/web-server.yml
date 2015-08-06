@@ -32,3 +32,5 @@
   template: src=summit dest=/etc/nginx/sites-available/summit
 - file: src=/etc/nginx/sites-available/summit dest=/etc/nginx/sites-enabled/summit state=link
 
+- name: add logrotate conf
+  template: src=devcon-logrotate dest=/etc/logrotate.d/devcon

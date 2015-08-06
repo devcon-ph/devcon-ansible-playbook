@@ -1,0 +1,9 @@
+/home/deploy/apps/devcon-release/shared/log/*.log {
+    weekly
+    missingok
+    rotate 26
+    compress
+    delaycompress
+    notifempty
+    copytruncate
+}
